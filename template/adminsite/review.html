@@ -1,0 +1,131 @@
+{% extends "adminsite/dashboard.html" %}
+{% load static %}
+
+{% block mainContent %}
+
+<div class="container">
+    <div class="page-inner">
+
+        <div class="page-header">
+            <h3 class="fw-bold mb-3">
+                <i class="fas fa-star text-warning"></i>
+                Manage Reviews
+            </h3>
+        </div>
+
+        <div class="card">
+
+            <div class="card-header d-flex justify-content-between align-items-center">
+
+                <h4 class="card-title">
+                    Customer Reviews
+                </h4>
+
+                <span class="badge bg-primary fs-6">
+                    Total Reviews : {{ reviews|length }}
+                </span>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="table-responsive">
+
+                    <table
+                        id="add-row"
+                        class="display table table-striped table-hover text-center align-middle">
+
+                        <thead>
+
+                            <tr>
+
+                                <th><i class="fas fa-hashtag"></i> ID</th>
+
+                                <th><i class="fas fa-user"></i> User</th>
+
+                                <th><i class="fas fa-box"></i> Product</th>
+
+                                <th><i class="fas fa-star"></i> Rating</th>
+
+                                <th><i class="fas fa-comment"></i> Review</th>
+
+                                <th><i class="fas fa-calendar-alt"></i> Date</th>
+
+                                <th width="120">
+                                    <i class="fas fa-cogs"></i> Action
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        {% for review in reviews %}
+
+                            <tr>
+
+                                <td>{{ review.id }}</td>
+
+                                <td>{{ review.user.username }}</td>
+
+                                <td>{{ review.product.name }}</td>
+
+                                <td>
+
+                                    <span class="badge bg-warning text-dark">
+                                        {{ review.rating }}/5 ⭐
+                                    </span>
+
+                                </td>
+
+                                <td style="max-width:300px;">
+                                    {{ review.review }}
+                                </td>
+
+                                <td>
+                                    {{ review.created_at|date:"d M Y H:i" }}
+                                </td>
+
+                                <td>
+
+                                    <a href="{% url 'deletereview' review.id %}"
+                                       class="btn btn-danger btn-sm"
+                                       onclick="return confirm('Delete this review?')">
+
+                                        <i class="fas fa-trash"></i>
+
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                        {% empty %}
+
+                            <tr>
+
+                                <td colspan="7" class="text-center fw-bold">
+
+                                    No Reviews Found
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

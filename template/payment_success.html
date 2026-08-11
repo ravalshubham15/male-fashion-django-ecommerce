@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5 text-center">
+
+    <div class="card shadow p-5">
+
+        <h1 class="text-success">✅ Payment Successful</h1>
+
+        <hr>
+
+        <h4>Thank You For Your Purchase!</h4>
+
+        <br>
+
+        <p><strong>Payment ID:</strong> {{ payment_id }}</p>
+
+        <p><strong>Payment Method:</strong> {{ payment_method }}</p>
+
+        <p><strong>Amount Paid:</strong> ₹{{ amount }}</p>
+
+        <br>
+
+        <a href="{% url 'my_orders' %}" class="btn btn-dark">
+            View My Orders
+        </a>
+
+        <a href="{% url 'download_invoice' order.id %}" class="btn btn-primary mb-2">
+            📄 Download Invoice
+        </a>
+
+        <a href="{% url 'index' %}" class="btn btn-success">
+            Continue Shopping
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

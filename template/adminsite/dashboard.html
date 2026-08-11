@@ -1,0 +1,234 @@
+{% extends 'adminsite/base.html' %}
+{% load static %}
+
+{% block mainContent %}
+
+<div class="container-fluid">
+
+    <div class="page-inner">
+
+        <div
+            class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4"
+        >
+            <div>
+                <h3 class="fw-bold mb-3">Dashboard</h3>
+                <h6 class="op-7 mb-2">
+                    Fashion Store Admin Dashboard
+                </h6>
+            </div>
+        </div>
+
+        <!-- Dashboard Cards Start -->
+
+        <div class="row">
+
+            <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+
+                            <div class="col-icon">
+                                <div class="icon-big text-center icon-primary bubble-shadow-small">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </div>
+
+                            <div class="col col-stats ms-3 ms-sm-0">
+                                <div class="numbers">
+                                    <p class="card-category">Users</p>
+                                    <h4 class="card-title">{{ total_users }}</h4>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+
+                            <div class="col-icon">
+                                <div class="icon-big text-center icon-success bubble-shadow-small">
+                                    <i class="fas fa-box"></i>
+                                </div>
+                            </div>
+
+                            <div class="col col-stats ms-3 ms-sm-0">
+                                <div class="numbers">
+                                    <p class="card-category">Products</p>
+                                    <h4 class="card-title">{{ total_products }}</h4>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+
+                            <div class="col-icon">
+                                <div class="icon-big text-center icon-warning bubble-shadow-small">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                            </div>
+
+                            <div class="col col-stats ms-3 ms-sm-0">
+                                <div class="numbers">
+                                    <p class="card-category">Orders</p>
+                                    <h4 class="card-title">{{ total_orders }}</h4>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+
+                            <div class="col-icon">
+                                <div class="icon-big text-center icon-danger bubble-shadow-small">
+                                    <i class="fas fa-rupee-sign"></i>
+                                </div>
+                            </div>
+
+                            <div class="col col-stats ms-3 ms-sm-0">
+                                <div class="numbers">
+                                    <p class="card-category">Revenue</p>
+                                    <h4 class="card-title">₹{{ total_revenue }}</h4>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Dashboard Cards End -->
+
+        
+
+<!-- Recent Orders -->
+
+<div class="row mt-4">
+
+    <div class="col-md-12">
+
+        <div class="card shadow-sm">
+
+            <div class="card-header">
+
+                <h4 class="card-title">
+
+                    <i class="fas fa-shopping-cart text-success"></i>
+
+                    Recent Orders
+
+                </h4>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="table-responsive">
+
+                    <table class="table table-hover table-bordered align-middle">
+
+                        <thead class="table-dark">
+
+                            <tr>
+
+                                <th>Order ID</th>
+
+                                <th>Customer</th>
+
+                                <th>Date</th>
+
+                                <th>Total</th>
+
+                                <th>Status</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            {% for order in recent_orders %}
+
+                            <tr>
+
+                                <td>#{{ order.id }}</td>
+
+                                <td>{{ order.user.username }}</td>
+
+                                <td>{{ order.order_date|date:"d M Y" }}</td>
+
+                                <td>₹{{ order.total_amount }}</td>
+
+                                <td>
+
+                                    {% if order.status == "Pending" %}
+                                        <span class="badge bg-warning text-dark">Pending</span>
+
+                                    {% elif order.status == "Processing" %}
+                                        <span class="badge bg-info">Processing</span>
+
+                                    {% elif order.status == "Shipped" %}
+                                        <span class="badge bg-primary">Shipped</span>
+
+                                    {% elif order.status == "Delivered" %}
+                                        <span class="badge bg-success">Delivered</span>
+
+                                    {% elif order.status == "Cancelled" %}
+                                        <span class="badge bg-danger">Cancelled</span>
+
+                                    {% else %}
+                                        <span class="badge bg-secondary">{{ order.status }}</span>
+
+                                    {% endif %}
+
+                                </td>
+
+                            </tr>
+
+                            {% empty %}
+
+                            <tr>
+
+                                <td colspan="5" class="text-center">
+
+                                    No Orders Available
+
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

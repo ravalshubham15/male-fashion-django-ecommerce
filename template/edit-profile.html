@@ -1,0 +1,472 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Profile</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/bootstrap.min.css' %}">
+
+    <style>
+
+        body {
+            background: #f5f7fb;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #212529;
+        }
+
+        .edit-wrapper {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 0 15px;
+        }
+
+        .edit-card {
+            background: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        .edit-header {
+            background: linear-gradient(135deg, #111827, #374151);
+            padding: 35px;
+            color: white;
+        }
+
+        .edit-header h2 {
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .edit-header p {
+            margin: 0;
+            opacity: 0.8;
+        }
+
+        .edit-body {
+            padding: 40px;
+        }
+
+        /* Profile image */
+
+        .profile-image-section {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .profile-image-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            background: #f1f3f5;
+        }
+
+        .image-label {
+            display: inline-block;
+            margin-top: 15px;
+            cursor: pointer;
+            background: #0d6efd;
+            color: white;
+            padding: 9px 18px;
+            border-radius: 9px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .image-label:hover {
+            background: #0b5ed7;
+            transform: translateY(-2px);
+        }
+
+        #profile_image {
+            display: none;
+        }
+
+        .image-help {
+            color: #6c757d;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        /* Form */
+
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-control,
+        .form-select {
+            min-height: 48px;
+            border-radius: 10px;
+            border: 1px solid #dee2e6;
+            padding: 10px 14px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.12);
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .button-area {
+            border-top: 1px solid #e9ecef;
+            margin-top: 35px;
+            padding-top: 25px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .save-btn {
+            background: #198754;
+            border: none;
+            color: white;
+            padding: 11px 25px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .save-btn:hover {
+            background: #157347;
+            color: white;
+        }
+
+        .cancel-btn {
+            background: white;
+            border: 1px solid #ced4da;
+            color: #212529;
+            padding: 11px 25px;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .cancel-btn:hover {
+            background: #f1f3f5;
+            color: #212529;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 767px) {
+
+            .edit-wrapper {
+                margin-top: 20px;
+            }
+
+            .edit-header {
+                padding: 25px 20px;
+            }
+
+            .edit-body {
+                padding: 25px 20px;
+            }
+
+            .profile-image {
+                width: 125px;
+                height: 125px;
+            }
+
+            .button-area {
+                flex-direction: column;
+            }
+
+            .save-btn,
+            .cancel-btn {
+                width: 100%;
+                text-align: center;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="edit-wrapper">
+
+    <div class="edit-card">
+
+        <div class="edit-header">
+
+            <h2>
+
+                ✏️ Edit Profile
+
+            </h2>
+
+            <p>Update your personal information and profile photo.</p>
+
+        </div>
+
+        <div class="edit-body">
+
+            <form method="POST" enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+            <div class="profile-image-section">
+
+                <div class="profile-image-wrapper">
+
+                        {% if profile.profile_image %}
+
+                            <img id="profilePreview" src="{{ profile.profile_image.url }}"
+                                 class="profile-image"
+                                 alt="Profile Image">
+
+                        {% else %}
+
+                            <img id="profilePreview" src="{% static 'img/default.png' %}"
+                                 class="profile-image"
+                                 alt="Default Profile Image">
+
+                        {% endif %}
+
+                    </div>
+
+                    <br>
+
+                    <label for="profile_image" class="image-label">
+
+                        📷 Change Profile Photo
+
+                    </label>
+
+                    <input type="file" id="profile_image" name="profile_image" accept="image/*">
+
+                    <div class="image-help">
+
+                        JPG, JPEG or PNG • Recommended square image
+
+                    </div>
+
+                </div>
+
+                <div class="form-section">
+
+                    <h3 class="section-title">
+
+                        👤 Personal Information
+
+                    </h3>
+
+                    <div class="row g-4">
+
+                        <div class="col-md-6">
+
+                            <label for="name" class="form-label">
+
+                                Full Name
+
+                            </label>
+
+                            <input type="text" id="name" name="name" class="form-control"
+                            value="{{ profile.name }}" placeholder="Enter your full name"
+                             maxlength="40" required>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+
+                                Username
+
+                            </label>
+
+                            <input type="text"class="form-control"value="{{ profile.user.username }}"
+                            disabled>
+
+                            <small class="text-muted">
+
+                                Username cannot be changed here.
+
+                            </small>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">
+
+                                Email Address
+
+                            </label>
+
+                            <input type="email" class="form-control" value="{{ profile.user.email }}"
+                             disabled>
+
+                            <small class="text-muted">
+
+                                Contact support if you need to change your email.
+
+                            </small>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label for="contact" class="form-label">
+
+                                Mobile Number
+
+                            </label>
+
+                            <input type="tel" id="contact" name="contact" class="form-control"
+                            value="{{ profile.contact }}" placeholder="Enter mobile number"
+                            maxlength="10" pattern="[0-9]{10}"
+                            title="Please enter a valid 10-digit mobile number">
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label for="city" class="form-label">
+
+                                City
+
+                            </label>
+
+                            <input type="text" id="city" name="city" class="form-control"
+                            value="{{ profile.city }}" placeholder="Enter your city"
+                            maxlength="30">
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label for="gender" class="form-label">
+
+                                Gender
+
+                            </label>
+
+                            <select id="gender" name="gender" class="form-select">
+
+                                <option value="">
+
+                                    Select Gender
+
+                                </option>
+
+                                <option value="Male"
+                                    {% if profile.gender == "Male" %}selected{% endif %}>
+
+                                    Male
+
+                                </option>
+
+                                <option value="Female"
+                                    {% if profile.gender == "Female" %}selected{% endif %}>
+
+                                    Female
+
+                                </option>
+
+                                <option value="Other"
+                                    {% if profile.gender == "Other" %}selected{% endif %}>
+
+                                    Other
+
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <div class="button-area">
+
+                    <button type="submit" class="save-btn">
+
+                        💾 Save Changes
+
+                    </button>
+
+
+                    <a href="{% url 'my_profile' %}" class="cancel-btn">
+
+                        ↩ Back to Profile
+
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    const imageInput = document.getElementById("profile_image");
+
+    const profilePreview = document.getElementById("profilePreview");
+
+
+    imageInput.addEventListener("change", function () {
+
+        const file = this.files[0];
+
+        if (file) {
+
+            const reader = new FileReader();
+
+            reader.onload = function (event) {
+
+                profilePreview.src = event.target.result;
+
+            };
+
+            reader.readAsDataURL(file);
+
+        }
+
+    });
+
+</script>
+
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+</body>
+</html>

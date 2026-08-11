@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container mt-5 mb-5">
+
+    <h2 class="text-center mb-5">
+        📊 Admin Dashboard
+    </h2>
+
+    <div class="row mb-4">
+
+    <div class="col-md-3 mb-2">
+        <a href="{% url 'manage_users' %}" class="btn btn-primary w-100">
+            👥 Manage Users
+        </a>
+    </div>
+
+    <div class="col-md-3 mb-2">
+        <a href="{% url 'manage_products' %}" class="btn btn-success w-100">
+            📦 Manage Products
+        </a>
+    </div>
+
+    <div class="col-md-3 mb-2">
+        <a href="#" class="btn btn-warning w-100">
+            🛒 Manage Orders
+        </a>
+    </div>
+
+    <div class="col-md-3 mb-2">
+        <a href="#" class="btn btn-info w-100">
+            💳 Payments
+        </a>
+    </div>
+
+</div>
+
+    <div class="row">
+
+        <!-- Total Users -->
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card shadow text-center border-0">
+                <div class="card-body">
+                    <h1 class="text-primary">{{ total_users }}</h1>
+                    <h5>Total Users</h5>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Products -->
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card shadow text-center border-0">
+                <div class="card-body">
+                    <h1 class="text-success">{{ total_products }}</h1>
+                    <h5>Total Products</h5>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Orders -->
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card shadow text-center border-0">
+                <div class="card-body">
+                    <h1 class="text-warning">{{ total_orders }}</h1>
+                    <h5>Total Orders</h5>
+                </div>
+            </div>
+        </div>
+
+        <!-- Revenue -->
+        <div class="col-lg-6 col-md-6 mb-4">
+            <div class="card shadow text-center border-0">
+                <div class="card-body">
+                    <h1 class="text-danger">₹{{ total_revenue }}</h1>
+                    <h5>Total Revenue</h5>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reviews -->
+        <div class="col-lg-6 col-md-6 mb-4">
+            <div class="card shadow text-center border-0">
+                <div class="card-body">
+                    <h1 class="text-info">{{ total_reviews }}</h1>
+                    <h5>Total Reviews</h5>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Total Payments -->
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card shadow text-center border-0">
+                <div class="card-body">
+                    <h1 class="text-secondary">{{ total_payments }}</h1>
+                        <h5>Total Payments</h5>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+</div>
+
+
+
+<hr class="my-5">
+
+<div class="container">
+
+    <h3 class="mb-3">📦 Recent Orders</h3>
+
+    <table class="table table-bordered table-striped">
+
+        <thead class="table-dark">
+
+        <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Amount</th>
+            <th>Status</th>
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for order in recent_orders %}
+
+        <tr>
+
+            <td>{{ order.id }}</td>
+            <td>{{ order.user.username }}</td>
+            <td>₹{{ order.total_amount }}</td>
+            <td>{{ order.status }}</td>
+
+        </tr>
+
+        {% empty %}
+
+        <tr>
+            <td colspan="4" class="text-center">
+                No Orders Found
+            </td>
+        </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<hr class="my-5">
+
+<div class="container">
+
+    <h3 class="mb-3">⭐ Latest Reviews</h3>
+
+    <table class="table table-bordered table-striped">
+
+        <thead class="table-dark">
+
+        <tr>
+            <th>User</th>
+            <th>Product</th>
+            <th>Rating</th>
+            <th>Review</th>
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for review in recent_reviews %}
+
+        <tr>
+
+            <td>{{ review.user.username }}</td>
+            <td>{{ review.product.name }}</td>
+            <td>{{ review.rating }}/5 ⭐</td>
+            <td>{{ review.review }}</td>
+
+        </tr>
+
+        {% empty %}
+
+        <tr>
+            <td colspan="4" class="text-center">
+                No Reviews Found
+            </td>
+        </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+{% endblock %}

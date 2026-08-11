@@ -1,0 +1,228 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders</title>
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+
+<div class="container mt-5 mb-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2 class="fw-bold mb-0">
+            📦 My Orders
+        </h2>
+
+        <span class="badge bg-primary fs-6 px-3 py-2">
+            Total Orders : {{ order_data|length }}
+        </span>
+
+    </div>
+
+    <div class="card shadow border-0">
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-dark text-center">
+
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Total Amount</th>
+                            <th>💳 Payment</th>
+                            <th>📦 Order Status</th>
+                            <th>Order Date</th>
+                            <th>Action</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                    {% for item in order_data %}
+
+                        <tr>
+
+                            <!-- Order ID -->
+                            <td class="text-center">
+                                <span class="fw-bold text-primary">
+                                    #ORD{{ item.order.id|stringformat:"05d" }}
+                                </span>
+                            </td>
+
+                            <!-- Amount -->
+                            <td class="text-center">
+                                <span class="fw-bold text-danger">
+                                    ₹{{ item.order.total_amount }}
+                                </span>
+                            </td>
+
+                            <!-- Payment -->
+                            <td class="text-center">
+
+                                {% if item.payment %}
+
+                                    {% if item.payment.status == "Success" %}
+
+                                        <span class="badge bg-success">
+                                            💳 Paid
+                                        </span>
+
+                                    {% elif item.payment.status == "Pending" %}
+
+                                        <span class="badge bg-warning text-dark">
+                                            ⏳ Pending
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="badge bg-danger">
+                                            ❌ Failed
+                                        </span>
+
+                                    {% endif %}
+
+                                {% else %}
+
+                                    <span class="badge bg-secondary">
+                                        N/A
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                            <!-- Order Status -->
+                            <td class="text-center">
+
+                                {% if item.order.status == "Pending" %}
+
+                                    <span class="badge bg-warning text-dark">
+                                        ⏳ Processing
+                                    </span>
+
+                                {% elif item.order.status == "Confirmed" %}
+
+                                    <span class="badge bg-primary">
+                                        ✔ Confirmed
+                                    </span>
+
+                                {% elif item.order.status == "Shipped" %}
+
+                                    <span class="badge bg-info text-dark">
+                                        🚚 Shipped
+                                    </span>
+
+                                {% elif item.order.status == "Delivered" %}
+
+                                    <span class="badge bg-success">
+                                        📦 Delivered
+                                    </span>
+
+                                {% elif item.order.status == "Cancelled" %}
+
+                                    <span class="badge bg-danger">
+                                        ❌ Cancelled
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                            <!-- Date -->
+                            <td class="text-center">
+
+                                {{ item.order.order_date|date:"d M Y" }}
+
+                                <br>
+
+                                <small class="text-muted">
+
+                                    {{ item.order.order_date|time:"h:i A" }}
+
+                                </small>
+
+                            </td>
+
+                            <!-- Action -->
+                            <td class="text-center">
+
+                                <a href="{% url 'order_details' item.order.id %}"
+                                   class="btn btn-success btn-sm me-2">
+
+                                    👁 View Details
+
+                                </a>
+
+                                {% if item.order.status == "Pending" %}
+
+                                    <a href="{% url 'cancel_order' item.order.id %}"
+                                       class="btn btn-danger btn-sm"
+                                       onclick="return confirm('Are you sure you want to cancel this order?');">
+
+                                        ❌ Cancel Order
+
+                                    </a>
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                    {% empty %}
+
+                        <tr>
+
+                            <td colspan="6" class="text-center py-5">
+
+                                <h4>📦 No Orders Found</h4>
+
+                                <p class="text-muted">
+                                    Start shopping to place your first order.
+                                </p>
+
+                                <a href="{% url 'index' %}" class="btn btn-dark">
+
+                                    🛍 Shop Now
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="mt-4">
+
+        <a href="{% url 'index' %}" class="btn btn-dark">
+
+            ⬅ Back to Home
+
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

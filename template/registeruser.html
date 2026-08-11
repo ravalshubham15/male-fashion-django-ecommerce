@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Registration or Sign Up form in HTML CSS | CodingLab </title> 
+    <link rel="stylesheet" href="{% static 'register.css' %}">
+   </head>
+<body>
+  <div class="wrapper">
+    <h2>Registration</h2>
+    <form method="POST">
+        {% csrf_token %}
+      <div class="input-box">
+        <input type="text" name="txtname" placeholder="Enter your name" required>
+      </div>
+
+      <div class="input-box">
+        <input type="text" name="txtusername" placeholder="Enter User name" required>
+      </div>
+      <div class="input-box">
+        <input type="text" name="txtemail" placeholder="Enter your email" required>
+      </div>
+      <div class="input-box">
+        <input type="password" name="txtpassword" placeholder="Create password" required>
+      </div>
+      <div class="input-box">
+        <input type="password" name="txtconfirmpassword" placeholder="Confirm password" required>
+      </div>
+      <div class="input-box">
+        <input type="text" name="txtcontact" placeholder="Contact" required>
+      </div>
+      <div class="input-box">
+        <input type="text" name="txtcity" placeholder="City" required>
+      </div>
+      <div class="gender-details">
+          <!-- Radio buttons for gender selection -->
+          <input type="radio" name="txtgender" id="dot-1" value="male"> 
+          <input type="radio" name="txtgender" id="dot-2" value="female">
+          <input type="radio" name="txtgender" id="dot-3" value="not prefered">
+          <span class="gender-title">Gender</span>
+          <div class="category">
+            <!-- Label for Male -->
+            <label for="dot-1">
+              <span class="dot one"></span>
+              <span class="gender">Male</span>
+            </label>
+            <!-- Label for Female -->
+            <label for="dot-2">
+              <span class="dot two"></span>
+              <span class="gender">Female</span>
+            </label>
+            <!-- Label for Prefer not to say -->
+            <label for="dot-3">
+              <span class="dot three"></span>
+              <span class="gender">Prefer not to say</span>
+            </label>
+          </div>
+        </div>
+      <div class="policy">
+        <input type="checkbox">
+        <h3>I accept all terms & condition</h3>
+      </div>
+      <div class="input-box button">
+        <input type="Submit" value="Register Now">
+      </div>
+      <div class="text">
+        <h3>Already have an account? <a href="{% url "userlogin" %}">Login now</a></h3>
+        <h3> <a href="{% url "index" %}">Back to Home</a></h3>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

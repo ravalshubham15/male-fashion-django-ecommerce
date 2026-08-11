@@ -1,0 +1,70 @@
+{% extends 'adminsite/base.html' %}
+
+{% block mainContent %}
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">Manage Orders</h2>
+
+    <table class="table table-bordered table-hover">
+
+        <thead class="table-dark">
+
+            <tr>
+                <th>ID</th>
+                <th>User</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for order in orders %}
+
+        <tr>
+
+            <td>{{ order.id }}</td>
+            <td>{{ order.user.username }}</td>
+            <td>₹{{ order.total_amount }}</td>
+            <td>{{ order.status }}</td>
+            <td>{{ order.order_date }}</td>
+
+            <td>
+
+            <a href="{% url 'updateorder' order.id %}"class="btn btn-primary btn-sm">
+                                Update Status
+            </a>
+
+            <a href="{% url 'deleteorder' order.id %}"class="btn btn-danger btn-sm"
+            onclick="return confirm('Delete this order?')">
+                                Delete Order
+
+            <i class="fas fa-trash"></i>
+            </a>
+            </td>
+
+        </tr>
+
+        {% empty %}
+
+        <tr>
+
+            <td colspan="6" class="text-center">
+                No Orders Found
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

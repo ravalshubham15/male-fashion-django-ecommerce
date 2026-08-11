@@ -1,0 +1,118 @@
+{% extends "adminsite/dashboard.html" %}
+
+{% block mainContent %}
+
+<div class="container">
+    <div class="page-inner">
+
+        <div class="page-header">
+            <h3 class="fw-bold mb-3">
+                <i class="fas fa-users text-primary"></i>
+                Manage Users
+            </h3>
+        </div>
+
+        <div class="card">
+
+            <div class="card-header">
+                <h4 class="card-title">User List</h4>
+            </div>
+
+            <div class="card-body">
+
+                <div class="table-responsive">
+
+                    <table
+                        id="add-row"
+                        class="display table table-striped table-hover">
+
+                        <thead>
+
+                            <tr>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>Name</th>
+                                <th>Contact</th>
+                                <th>City</th>
+                                <th>Gender</th>
+                                <th>Registered</th>
+                                <th width="150">Action</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                        {% for d in data %}
+
+                            <tr>
+
+                                <td>{{ d.id }}</td>
+
+                                <td>{{ d.user.username }}</td>
+
+                                <td>{{ d.name }}</td>
+
+                                <td>{{ d.contact }}</td>
+
+                                <td>{{ d.city }}</td>
+
+                                <td>{{ d.gender }}</td>
+
+                                <td>{{ d.register_at|date:"d M Y" }}</td>
+
+                                <td>
+
+                                    <div class="d-flex gap-2">
+
+                                        <a href="{% url 'edituser' d.id %}"
+                                           class="btn btn-primary btn-sm"
+                                           title="Edit User">
+
+                                            <i class="fas fa-edit"></i>
+
+                                        </a>
+
+                                        <a href="{% url 'deleteuser' d.id %}"
+                                           class="btn btn-danger btn-sm"
+                                           onclick="return confirm('Delete this user?')"
+                                           title="Delete User">
+
+                                            <i class="fas fa-trash"></i>
+
+                                        </a>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        {% empty %}
+
+                            <tr>
+
+                                <td colspan="8" class="text-center">
+
+                                    No Users Found
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

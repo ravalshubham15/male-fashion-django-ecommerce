@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h4>My Wishlist</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="product spad">
+    <div class="container">
+
+        <div class="row">
+
+          {% for w in wish %}
+
+<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+
+    <div class="card shadow-sm h-100">
+
+        <img src="{{ w.product.image.url }}"
+             class="card-img-top"
+             style="height:250px; object-fit:cover;">
+
+        <div class="card-body d-flex flex-column">
+
+            <h5 class="card-title">{{ w.product.name }}</h5>
+
+            <h4 class="text-danger mb-3">₹{{ w.product.price }}</h4>
+
+            <a href="{% url 'product_details' w.product.id %}"
+               class="btn btn-dark mb-2">
+
+                View Details
+
+            </a>
+
+            <a href="{% url 'addtocart' w.product.id %}"
+               class="btn btn-primary mb-2">
+
+                🛒 Add To Cart
+
+            </a>
+
+            <a href="{% url 'remove_wishlist' w.id %}"
+               class="btn btn-outline-danger">
+
+                ❤️ Remove
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endfor %}
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

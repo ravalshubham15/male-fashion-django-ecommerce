@@ -1,0 +1,435 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+    <!-- Hero Section Begin -->
+    <section class="hero">
+        <div class="hero__slider owl-carousel">
+            <div class="hero__items set-bg" data-setbg="{% static 'img/hero/hero-1.jpg' %}">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-5 col-lg-7 col-md-8">
+                            <div class="hero__text">
+                                <span class="text-uppercase fw-bold text-danger">
+                                    Welcome to SR Clothing
+                                </span>
+
+                                <h2>Premium Men's Fashion Collection 2026</h2>
+
+                                 <p>Discover the latest men's fashion with premium quality,
+                                    stylish designs, affordable prices, and secure online shopping.
+                                 </p>
+
+                                <a href="#products" class="primary-btn">
+                                                Shop Now
+                                 <span class="arrow_right"></span>
+                                </a>
+
+                                <div class="hero__social mt-4">
+
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-youtube"></i></a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero__items set-bg" data-setbg="{% static 'img/hero/hero-2.jpg' %}">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-5 col-lg-7 col-md-8">
+                            <div class="hero__text">
+                                <span class="text-uppercase fw-bold text-warning">
+                                                New Arrival
+                                </span>
+
+                                <h2>Trending Fashion For Every Occasion</h2>
+
+                            <p>Upgrade your wardrobe with the newest collection
+                               of shirts, jeans, shoes, watches and accessories.</p>
+
+                            <a href="#products" class="primary-btn">
+                                            Explore Collection
+                            <span class="arrow_right"></span>
+                            </a>
+                                
+                                <div class="hero__social">
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                    <a href="#"><i class="fa fa-pinterest"></i></a>
+                                    <a href="#"><i class="fa fa-instagram"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+   <section class="py-5 bg-light">
+
+    <div class="container">
+
+        <div class="row text-center">
+
+            <div class="col-lg-3 col-md-6 mb-4">
+
+                <i class="fa fa-truck fa-3x text-danger mb-3"></i>
+
+                <h5>Free Shipping</h5>
+
+                <p class="text-muted">
+                    Free delivery on orders above ₹999.
+                </p>
+
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4">
+
+                <i class="fa fa-credit-card fa-3x text-primary mb-3"></i>
+
+                <h5>Secure Payment</h5>
+
+                <p class="text-muted">
+                    100% safe and secure online payments.
+                </p>
+
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4">
+
+                <i class="fa fa-refresh fa-3x text-success mb-3"></i>
+
+                <h5>Easy Returns</h5>
+
+                <p class="text-muted">
+                    Hassle-free 7-day return policy.
+                </p>
+
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4">
+
+                <i class="fa fa-headphones fa-3x text-warning mb-3"></i>
+
+                <h5>24×7 Support</h5>
+
+                <p class="text-muted">
+                    Friendly customer support anytime.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+    <!-- Banner Section Begin -->
+    <section class="banner spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 offset-lg-4">
+                    <div class="banner__item">
+                        <div class="banner__item__pic">
+                            <img src="{% static 'img/banner/banner-1.jpg' %}" alt="">
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="banner__item banner__item--middle">
+                        <div class="banner__item__pic">
+                            <img src="{% static 'img/banner/banner-2.jpg' %}" alt="">
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="banner__item banner__item--last">
+                        <div class="banner__item__pic">
+                            <img src="{% static 'img/banner/banner-3.jpg' %}" alt="">
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Banner Section End -->
+
+    <!-- Product Section Begin -->
+    <section class="product spad" id="products">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="filter__controls">
+                        <li class="active" data-filter="*">Best Sellers</li>
+                        
+                    </ul>
+                </div>
+            </div>
+         
+            <div class="row mb-4">
+            <div class="col-lg-6 mx-auto">
+            <form method="GET" action="{% url 'index' %}">
+            <div class="input-group">
+                <input
+                    type="text"
+                    class="form-control"
+                    name="search"
+                    placeholder="Search products..."
+                    value="{{ request.GET.search }}"
+                >
+                <button class="btn btn-dark" type="submit">
+                <i class="fas fa-search"></i>
+                            Search
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+            <div class="row">
+
+                {% for p in prod %}
+
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+
+            <div class="card shadow-sm border-0 h-100 position-relative">
+
+            <a href="{% url 'product_details' p.id %}">
+           
+                <div class="position-absolute m-2">
+                <span class="badge bg-danger">
+                             NEW
+                 </span>
+                </div>
+
+            <img src="{{ p.image.url }}"
+                 class="card-img-top"
+                 style="height:320px; object-fit:cover;">
+            </a>
+
+            <div class="card-body text-center">
+
+            <h5 class="card-title" style="min-height:60px;">
+                        {{ p.name }}
+            </h5>
+
+            <div class="mb-2">
+            <span class="text-warning">
+
+                        ★★★★★
+            </span>
+
+            <small class="text-muted">
+                        (5.0)
+             </small>
+
+            </div>
+
+            <h4 class="fw-bold text-danger mb-3">
+
+                        ₹{{ p.price }}
+            </h4>
+
+            <a href="{% url 'product_details' p.id %}" class="btn btn-outline-primary w-100 mb-2">
+            <i class="fa fa-eye"></i>
+
+                                    View Details
+            </a>
+
+            <a href="{% url 'add_to_wishlist' p.id %}" class="btn btn-outline-danger w-100 mb-2">
+            <i class="fa fa-heart"></i>
+
+                                    Wishlist
+            </a>
+
+            <a href="{% url 'addtocart' p.id %}" class="btn btn-dark w-100">
+            <i class="fa fa-shopping-cart"></i>
+
+                                    Add To Cart
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+                        {% empty %}
+
+            <div class="col-12 text-center">
+            <h3>No products found 😔</h3>
+            <p>Try searching with another product name.</p>
+            </div>
+
+                        {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- Product Section End -->
+
+    <section class="py-5 bg-light">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <h2 class="fw-bold">
+                Top Brands
+            </h2>
+
+            <p class="text-muted">
+                Explore the world's best fashion brands
+            </p>
+
+        </div>
+
+        <div class="row">
+
+            {% for b in brands %}
+
+            <div class="col-lg-2 col-md-4 col-6 mb-4">
+
+                <div class="card border-0 shadow-sm text-center p-3 h-100 brand-card">
+
+                                        {% if b.image %}
+                <img src="{{ b.image.url }}" class="img-fluid mx-auto mb-3"
+                style="height:100px; object-fit:contain;">
+                                        {% else %}
+
+                <img src="{% static 'img/default-brand.png' %}" class="img-fluid mx-auto mb-3"
+                style="height:100px; object-fit:contain;">
+                                        {% endif %}
+
+                    <h6 class="fw-bold">
+                        {{ b.name }}
+                    </h6>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <div class="col-12 text-center">
+
+                <h5>No Brands Available</h5>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+    <!-- Categories Section Begin -->
+    <section class="categories spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                   
+                </div>
+                <div class="col-lg-4">
+                    <div class="categories__hot__deal">
+                        <img src="{% static 'img/male fashion.jpg' %}" alt="">
+                        <div class="hot__deal__sticker">
+                            <span>Sale Of</span>
+                            <h5>20% off</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 offset-lg-1">
+                    <div class="categories__deal__countdown">
+                        <span>Deal Of The Week</span>
+                        <h2>Multi-pocket Chest Bag Black</h2>
+                        <div class="categories__deal__countdown__timer" id="countdown">
+                            <div class="cd-item">
+                                <span>3</span>
+                                <p>Days</p>
+                            </div>
+                            <div class="cd-item">
+                                <span>1</span>
+                                <p>Hours</p>
+                            </div>
+                            <div class="cd-item">
+                                <span>50</span>
+                                <p>Minutes</p>
+                            </div>
+                            <div class="cd-item">
+                                <span>18</span>
+                                <p>Seconds</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Categories Section End -->
+
+    <!-- Instagram Section Begin -->
+    <section class="instagram spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="instagram__pic">
+                        <div class="instagram__pic__item set-bg" data-setbg="img/instagram/instagram-1.jpg"></div>
+                        <div class="instagram__pic__item set-bg" data-setbg="img/instagram/instagram-2.jpg"></div>
+                        <div class="instagram__pic__item set-bg" data-setbg="img/instagram/instagram-3.jpg"></div>
+                        <div class="instagram__pic__item set-bg" data-setbg="img/instagram/instagram-4.jpg"></div>
+                        <div class="instagram__pic__item set-bg" data-setbg="img/instagram/instagram-5.jpg"></div>
+                        <div class="instagram__pic__item set-bg" data-setbg="img/instagram/instagram-6.jpg"></div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="instagram__text">
+                        <h2>Instagram</h2>
+                        <p>Follow SR Clothing Latest fashion updates,offers and styling tips.
+                           @sr_clothing.</p>
+                        <h3>SR_Fashion</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Instagram Section End -->
+
+    <!-- Latest Blog Section Begin -->
+    <section class="latest spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                   
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="blog__item">
+                        <div class="blog__item__pic set-bg" data-setbg="img/blog/blog-1.jpg"></div>
+                        
+                    </div>
+                </div>
+               
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                   
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Latest Blog Section End -->
+{% endblock %}

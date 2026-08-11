@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <h2>Checkout</h2>
+
+    <hr>
+
+    <h4>Total Amount : ₹{{ total }}</h4>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <div class="form-check mt-4">
+
+            <input class="form-check-input"
+                   type="radio"
+                   name="payment_method"
+                   value="Demo Online Payment"
+                   checked>
+
+            <label class="form-check-label">
+                💳 Demo Online Payment
+            </label>
+
+        </div>
+
+        <div class="form-check">
+
+            <input class="form-check-input"
+                   type="radio"
+                   name="payment_method"
+                   value="Cash On Delivery">
+
+            <label class="form-check-label">
+                🚚 Cash On Delivery
+            </label>
+
+        </div>
+
+        <button class="btn btn-success mt-4">
+            Pay Now
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

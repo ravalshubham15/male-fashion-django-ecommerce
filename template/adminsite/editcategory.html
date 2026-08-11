@@ -1,0 +1,96 @@
+{% extends "adminsite/dashboard.html" %}
+
+{% block mainContent %}
+
+<div class="container">
+    <div class="page-inner">
+
+        <div class="card">
+
+            <div class="card-header">
+                <h4 class="card-title">
+                    <i class="fas fa-edit text-primary"></i>
+                    Edit Category
+                </h4>
+            </div>
+
+            <div class="card-body">
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Category Name
+                        </label>
+
+                        <input type="text"
+                               class="form-control"
+                               name="txtcname"
+                               value="{{ data.name }}"
+                               required>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Select Brand
+                        </label>
+
+                        <select class="form-select"
+                                name="txtbrand">
+
+                            {% for b in brands %}
+
+                            <option value="{{ b.id }}"
+                                {% if b.id == data.brand.id %}
+                                    selected
+                                {% endif %}>
+
+                                {{ b.name }}
+
+                            </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Description
+                        </label>
+
+                        <textarea class="form-control"
+                                  rows="4"
+                                  name="txtdescription">{{ data.description }}</textarea>
+
+                    </div>
+
+                    <button class="btn btn-success">
+                        <i class="fas fa-save"></i>
+                        Update Category
+                    </button>
+
+                    <a href="{% url 'managecategory' %}"
+                       class="btn btn-danger">
+
+                        Cancel
+
+                    </a>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

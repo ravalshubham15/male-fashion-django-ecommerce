@@ -1,0 +1,702 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>My Profile</title>
+
+   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        body {
+            background: #f5f7fb;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #212529;
+        }
+
+        .profile-wrapper {
+            max-width: 1100px;
+            margin: 50px auto;
+            padding: 0 15px;
+        }
+
+        /* Main profile card */
+
+        .profile-card {
+            background: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Profile header */
+
+        .profile-header {
+            background: linear-gradient(135deg, #111827, #374151);
+            height: 150px;
+            position: relative;
+        }
+
+        .profile-content {
+            padding: 0 45px 45px;
+        }
+
+        /* Profile image */
+
+        .profile-image-wrapper {
+            margin-top: -75px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 6px solid #ffffff;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            background: #ffffff;
+        }
+
+        /* User heading */
+
+        .profile-name {
+            font-size: 28px;
+            font-weight: 700;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        .profile-username {
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+
+        /* Buttons */
+
+        .profile-btn {
+            border-radius: 10px;
+            padding: 10px 18px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.2s ease;
+        }
+
+        .profile-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-edit {
+            background: #0d6efd;
+            color: #ffffff;
+        }
+
+        .btn-edit:hover {
+            background: #0b5ed7;
+            color: #ffffff;
+        }
+
+        .btn-password {
+            background: #ffffff;
+            color: #212529;
+            border: 1px solid #ced4da;
+        }
+
+        .btn-password:hover {
+            background: #f1f3f5;
+            color: #212529;
+        }
+
+        /* Section */
+
+        .section-title {
+            font-size: 21px;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+
+        .section-divider {
+            border: 0;
+            border-top: 1px solid #e9ecef;
+            margin: 35px 0;
+        }
+
+        /* Information */
+
+        .info-card {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 18px;
+            height: 100%;
+        }
+
+        .info-label {
+            font-size: 13px;
+            color: #6c757d;
+            margin-bottom: 7px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .info-value {
+            font-size: 16px;
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        /* Quick access */
+
+        .quick-card {
+            display: block;
+            text-decoration: none;
+            color: #212529;
+            background: #ffffff;
+            border: 1px solid #e9ecef;
+            border-radius: 14px;
+            padding: 20px;
+            text-align: center;
+            transition: 0.2s ease;
+            height: 100%;
+        }
+
+        .quick-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            color: #212529;
+        }
+
+        .quick-icon {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .quick-title {
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .quick-description {
+            color: #6c757d;
+            font-size: 13px;
+            margin: 0;
+        }
+
+        /* Activity cards */
+
+        .activity-card {
+            border-radius: 15px;
+            padding: 25px 15px;
+            text-align: center;
+            height: 100%;
+            background: #ffffff;
+            border: 1px solid #e9ecef;
+            transition: 0.2s ease;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+        }
+
+        .activity-icon {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .activity-number {
+            font-size: 30px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .activity-title {
+            font-weight: 600;
+            color: #6c757d;
+        }
+
+        .orders-color {
+            color: #0d6efd;
+        }
+
+        .wishlist-color {
+            color: #dc3545;
+        }
+
+        .cart-color {
+            color: #198754;
+        }
+
+        /* Back button */
+
+        .back-home {
+            margin-top: 30px;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 767px) {
+
+            .profile-wrapper {
+                margin-top: 20px;
+            }
+
+            .profile-content {
+                padding: 0 20px 30px;
+            }
+
+            .profile-header {
+                height: 120px;
+            }
+
+            .profile-image-wrapper {
+                margin-top: -60px;
+            }
+
+            .profile-image {
+                width: 120px;
+                height: 120px;
+            }
+
+            .profile-name {
+                font-size: 24px;
+            }
+
+            .profile-btn {
+                width: 100%;
+                text-align: center;
+                margin-top: 8px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="profile-wrapper">
+
+    <div class="profile-card">
+
+        <div class="profile-header"></div>
+
+            <div class="profile-content">
+
+                <div class="text-center">
+
+                    <div class="profile-image-wrapper">
+
+                    {% if profile.profile_image %}
+
+                        <img src="{{ profile.profile_image.url }}"
+                             alt="Profile Image"
+                             class="profile-image">
+
+                    {% else %}
+
+                        <img src="{% static 'img/default.png' %}"
+                             alt="Default Profile Image"
+                             class="profile-image">
+
+                    {% endif %}
+
+                </div>
+
+                <h1 class="profile-name">
+
+                    {{ profile.name|default:"User" }}
+
+                </h1>
+
+
+                <p class="profile-username">
+
+                    @{{ profile.user.username }}
+
+                </p>
+
+                <div>
+
+                    <a href="{% url 'edit_profile' %}" class="profile-btn btn-edit">
+
+                        <i class="fa-solid fa-pen-to-square"></i>
+
+                        Edit Profile
+
+                    </a>
+
+                    <a href="{% url 'change_password' %}" class="profile-btn btn-password">
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        Change Password
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            <hr class="section-divider">
+
+                <h2 class="section-title">
+
+                    <i class="fa-solid fa-user"></i>
+
+                Personal Information
+
+            </h2>
+
+
+            <div class="row g-3">
+
+                <div class="col-md-6">
+
+                    <div class="info-card">
+
+                        <div class="info-label">
+
+                            Full Name
+
+                        </div>
+
+                        <div class="info-value">
+
+                            {{ profile.name|default:"Not provided" }}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="info-card">
+
+                        <div class="info-label">
+
+                            Username
+
+                        </div>
+
+                        <div class="info-value">
+
+                            {{ profile.user.username }}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="info-card">
+
+                        <div class="info-label">
+
+                            Email Address
+
+                        </div>
+
+                        <div class="info-value">
+
+                            {{ profile.user.email|default:"Not provided" }}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="info-card">
+
+                        <div class="info-label">
+
+                            Mobile Number
+
+                        </div>
+
+                        <div class="info-value">
+
+                            {{ profile.contact|default:"Not provided" }}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                 <div class="col-md-6">
+
+                    <div class="info-card">
+
+                        <div class="info-label">
+
+                            City
+
+                        </div>
+
+                        <div class="info-value">
+
+                            {{ profile.city|default:"Not provided" }}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="info-card">
+
+                        <div class="info-label">
+
+                            Gender
+
+                        </div>
+
+                        <div class="info-value">
+
+                            {{ profile.gender|default:"Not provided" }}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <hr class="section-divider">
+
+                <h2 class="section-title">
+
+                <i class="fa-solid fa-bolt"></i>
+
+                Quick Access
+
+            </h2>
+
+            <div class="row g-3">
+
+                <div class="col-md-4">
+
+                    <a href="{% url 'my_orders' %}"
+                       class="quick-card">
+
+                        <div class="quick-icon">
+
+                            📦
+
+                        </div>
+
+                        <div class="quick-title">
+
+                            My Orders
+
+                        </div>
+
+                        <p class="quick-description">
+
+                            View your order history
+
+                        </p>
+
+                    </a>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <a href="{% url 'wishlist' %}"
+                       class="quick-card">
+
+                        <div class="quick-icon">
+
+                            ❤️
+
+                        </div>
+
+                        <div class="quick-title">
+
+                            Wishlist
+
+                        </div>
+
+                        <p class="quick-description">
+
+                            View your saved products
+
+                        </p>
+
+                    </a>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <a href="{% url 'cart' %}"
+                       class="quick-card">
+
+                        <div class="quick-icon">
+
+                            🛒
+
+                        </div>
+
+                        <div class="quick-title">
+
+                            Shopping Cart
+
+                        </div>
+
+                        <p class="quick-description">
+
+                            View products in your cart
+
+                        </p>
+
+                    </a>
+
+                </div>
+
+
+            </div>
+
+            <hr class="section-divider">
+
+                <h2 class="section-title">
+
+                    <i class="fa-solid fa-chart-simple"></i>
+
+                My Activity
+
+            </h2>
+
+            <div class="row g-3">
+
+                <div class="col-md-4">
+
+                    <div class="activity-card">
+
+                        <div class="activity-icon orders-color">
+
+                            📦
+
+                        </div>
+
+                        <div class="activity-number orders-color">
+
+                            {{ total_orders }}
+
+                        </div>
+
+                        <div class="activity-title">
+
+                            Total Orders
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="activity-card">
+
+                        <div class="activity-icon wishlist-color">
+
+                            ❤️
+
+                        </div>
+
+                        <div class="activity-number wishlist-color">
+
+                            {{ total_wishlist }}
+
+                        </div>
+
+                        <div class="activity-title">
+
+                            Wishlist Items
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="activity-card">
+
+                        <div class="activity-icon cart-color">
+
+                            🛒
+
+                        </div>
+
+                        <div class="activity-number cart-color">
+
+                            {{ total_cart }}
+
+                        </div>
+
+                        <div class="activity-title">
+
+                            Cart Items
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <div class="back-home text-center">
+
+                <a href="{% url 'index' %}"
+                   class="btn btn-dark px-4">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    Back to Home
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+</body>
+</html>
